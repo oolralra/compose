@@ -1,0 +1,22 @@
+networks:
+  cnet: 
+    external: true #이미 존재하는 cnet네트워크를 사용하겠다.
+
+services:
+  wp:
+    build:
+      context: ./mywp
+      dockerfile: Dockerfile
+    ports:
+    - "5959:80"
+    networks:
+    - cnet
+    depends_on:
+    - db
+
+  db:
+    build:
+      context: ./mydb
+      dockerfile: Dockerfile
+    networks:
+    - cnet

@@ -1,0 +1,31 @@
+networks:
+  cnet: 
+    external: true #이미 존재하는 cnet네트워크를 사용하겠다.
+
+services:
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+    - "80:80"
+    networks:
+    - cnet
+    depends_on:
+    - db
+    - was
+  was:
+    build:
+      context: ./was
+      dockerfile: Dockerfile
+    networks:
+    - cnet
+    depends_on:
+    - db
+      
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    networks:
+    - cnet

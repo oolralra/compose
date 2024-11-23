@@ -1,0 +1,14 @@
+networks:
+  cnet: 
+    external: true #이미 존재하는 cnet네트워크를 사용하겠다.
+
+services:
+  simple:
+    build:
+      context: ./ #Dockerfile이 존재하는 디렉토리.
+                  #Dockerfile이 docker-compose.yaml 파일보다 상위에 있으면 안됨.
+      dockerfile: Dockerfile
+    ports:
+    - "8085:8085"
+    networks:
+    - cnet
